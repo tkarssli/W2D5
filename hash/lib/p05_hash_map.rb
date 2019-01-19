@@ -1,5 +1,6 @@
 require_relative 'p04_linked_list'
 
+
 class HashMap
   include Enumerable
   attr_accessor :count
@@ -35,9 +36,10 @@ class HashMap
   end
 
   def delete(key)
-    
-    @store.each do |ll|
-      if ll.include?(key)
+    index = key.hash % num_buckets
+    ll = @store[index]
+    ll.each do |node|
+      if node.key == key
         @count -= 1
         ll.remove(key)
       end
