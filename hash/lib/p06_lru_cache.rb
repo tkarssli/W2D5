@@ -24,12 +24,29 @@ class LRUCache
 
   def calc!(key)
     # suggested helper method; insert an (un-cached) key
+    val = prc.call(key)
+    eject! if count >= @max
+
+    # Add Node to Hash and LinkedList
+    @store.append(key,val)
+    @map.set(key,val)
   end
+
+
 
   def update_node!(node)
     # suggested helper method; move a node to the end of the list
+    new_last = @store.last
+
   end
 
   def eject!
+    garbage_node = @store.first
+    head = garbage_node.prev 
+    new_first = garbage_node.next
+    head.next = new_first
+    new_first.prev = head
+
+    @map.delete(garbage_node.key)
   end
 end
